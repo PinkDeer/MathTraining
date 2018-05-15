@@ -20,9 +20,20 @@
     },
     computed: {
       answers() {
-        var res = [this.x + this.y];
+        var good = this.x + this.y
+        var res = [good]
 
-        return res;
+        while(res.length < 4){
+          var num = mtRand(good - 20, good + 20);
+
+          if(res.indexOf(num) === -1){
+            res.push(num);
+          }
+        }
+
+        return res.sort(function(){
+          return Math.random() > 0.5;
+        });
       }
     }
   }
