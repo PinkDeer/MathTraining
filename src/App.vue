@@ -4,11 +4,17 @@
     <hr>
     <app-start-screen
       v-if="state == 'start'"
-      @onStart="onStart"
-    >
+      @onStart="onStart">
     </app-start-screen>
-    <app-question v-else-if="state == 'question'"></app-question>
-    <app-message v-else-if="state == 'message'"></app-message>
+    <app-question v-else-if="state == 'question'"
+      @success="onQuestSuccess"
+      @error="onQuestError"
+    ></app-question>
+    <app-message v-else-if="state == 'message'"
+      :type="message.type"
+      :text="message.text"
+    >
+    </app-message>
     <app-resault-screen v-else-if="state == 'resaults'"></app-resault-screen>
     <div v-else>Unknown state</div>
   </div>
@@ -18,12 +24,26 @@
 export default {
   data () {
     return {
-      state: 'start'
+      state: 'start',
+      message: {
+        type: '',
+        text: ''
+      }
     }
   },
   methods: {
     onStart(){
       this.state = 'question';
+    },
+    onQuestSuccess(){
+      this.state = 'message';
+      this.message.text = 'Good Job!'
+      this.message.type = 'success'
+    },
+    onQuestError(msg){
+      this.state = 'message';
+      this.message.text = msg;
+      this.message.type = 'warning'
     }
   }
 }
