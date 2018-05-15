@@ -2,7 +2,7 @@
   <div class="alert" :class="'alert-' + type">
     <h2>{{ text }}</h2>
     <hr>
-    <button class="btn btn-primary" >Continue</button>
+    <button class="btn btn-primary" @click="$emit('onNext')">Continue</button>
   </div>
 </template>
 

@@ -13,7 +13,7 @@
     <app-message v-else-if="state == 'message'"
       :type="message.type"
       :text="message.text"
-    >
+      @onNext="onNext">
     </app-message>
     <app-resault-screen v-else-if="state == 'resaults'"></app-resault-screen>
     <div v-else>Unknown state</div>
@@ -44,6 +44,9 @@ export default {
       this.state = 'message';
       this.message.text = msg;
       this.message.type = 'warning'
+    },
+    onNext(){
+      this.state = 'question';
     }
   }
 }
