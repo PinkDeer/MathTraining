@@ -20,7 +20,11 @@
           :text="message.text"
           @onNext="onNext">
         </app-message>
-        <app-resault-screen v-else-if="state == 'resaults'"></app-resault-screen>
+        <app-resault-screen v-else-if="state == 'resault'"
+          :stats="stats"
+          @repeat="onStart"
+        >
+        </app-resault-screen>
         <div v-else>Unknown state</div>
       </transition>
     </div>
@@ -56,6 +60,8 @@ export default {
   methods: {
     onStart(){
       this.state = 'question';
+      this.stats.success = 0;
+      this.stats.error = 0;
     },
     onQuestSuccess(){
       this.state = 'message';
@@ -70,7 +76,12 @@ export default {
       this.stats.error++;
     },
     onNext(){
-      this.state = 'question';
+      if(this.questDone < this.questMax){
+        this.state = 'question';
+      }
+      else {
+        this.state = 'resault';
+      }
     }
   }
 }
