@@ -24,6 +24,7 @@
         <app-resault-screen v-else-if="state == 'resault'"
           :stats="stats"
           @repeat="onStart"
+          @nextLevel="onNextLevel"
         >
         </app-resault-screen>
         <div v-else>Unknown state</div>
@@ -104,6 +105,10 @@ export default {
       else {
         this.state = 'resault';
       }
+    },
+    onNextLevel(){
+      this.level++;
+      this.onStart();
     }
   }
 }
