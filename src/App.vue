@@ -1,6 +1,6 @@
 <template>
   <div class="training">
-    <h1>Math training</h1>
+    <h1>Math training. Level {{ level + 1 }}</h1>
     <hr>
     <div class="progress">
       <div class="progress-bar" :style="progressStyles"></div>
@@ -14,6 +14,7 @@
         <app-question v-else-if="state == 'question'"
           @success="onQuestSuccess"
           @error="onQuestError"
+          :settings="levels[level]"
         ></app-question>
         <app-message v-else-if="state == 'message'"
           :type="message.type"
@@ -44,7 +45,28 @@ export default {
         type: '',
         text: ''
       },
-      questMax: 3
+      questMax: 3,
+      level: 0,
+      levels : [
+        {
+          from: 10,
+          to: 40,
+          range: 5,
+          variants: 2
+        },
+        {
+          from: 100,
+          to: 200,
+          range: 20,
+          variants: 4
+        },
+        {
+          from: 500,
+          to: 900,
+          range: 40,
+          variants: 6
+        }
+      ]
     }
   },
   computed: {
